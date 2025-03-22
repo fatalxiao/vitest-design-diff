@@ -1,0 +1,10 @@
+{
+    "upgrade": true,
+    "reject": [
+        "eslint",
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "types": ["node"],
+        "typeRoots": ["node_modules/@types"],
+        "baseUrl": "./",
+        "target": "es2015",
+        "lib": ["es2015", "esnext", "dom"],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "jsx": "react-jsx",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "noImplicitAny": false
+    },
+    "include": ["src/**/*", "public/**/*", "**/*.d.ts"],
+    "exclude": ["node_modules", "dist", "lib", "es"],
+    "composite": true,
+    "references": [
+        {
+            "path": "./tsconfig.test.json"
+        }
+    ]
+}

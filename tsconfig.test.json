@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "vitest-design-diff": ["src"],
+            "vitest-design-diff/*": ["src/*"]
+        },
+        "types": [
+            "@vitest/browser/matchers",
+            "@vitest/browser/providers/playwright"
+        ]
+    },
+    "include": [
+        "src/**/*",
+        "src/*/__tests__/**/*",
+        "tests/**/*",
+        "vitest.workspace.ts"
+    ]
+}
