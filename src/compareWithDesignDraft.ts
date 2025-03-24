@@ -3,37 +3,70 @@
  */
 
 // Vendors
-import {
-    diffImages,
-    getImagesSSIM,
-    loadImage,
-    renderScreenshot,
-} from './index';
+import { diffImages, getImagesSSIM, loadImage, renderScreenshot } from './';
 
 // Types
 import type { ReactNode } from 'react';
 
 export interface Options {
+    /**
+     * The path of design draft.
+     */
     designDraft: string;
+
+    /**
+     * The component to be compared.
+     */
     component: ReactNode;
-    diffPath?: string;
-    beforeScreenshot?: () => Promise<unknown> | void;
+
+    /**
+     * The threshold of pixel diff between component screenshot and design draft.
+     */
+    diffThreshold?: number;
+
+    /**
+     * The diff result image path between component screenshot and design draft.
+     */
+    diffResultPath?: string;
+
+    /**
+     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
+     */
+    beforeScreenshot?: () => Promise<unknown> | unknown;
 }
 
 export interface CompareResult {
+    /**
+     * The ssim ( structural similarity index measure ) result between component screenshot and design draft.
+     */
     ssim: number;
-    diffSrc: string;
+
+    /**
+     * The data URL of the diff result image.
+     */
+    diffResultSrc: string;
+
+    /**
+     * The number of different pixel between component screenshot and design draft.
+     */
     diffPixelCount: number;
 }
 
-let defaultOptions: Options;
-
-const compareWithDesignDraft = async (options: Options) => {
-    const { designDraft, component, diffPath, beforeScreenshot } = {
-        ...defaultOptions,
-        ...options,
-    };
-
+/**
+ * Compare component with design draft.
+ * @param designDraft
+ * @param component
+ * @param diffThreshold
+ * @param diffResultPath
+ * @param beforeScreenshot
+ */
+const compareWithDesignDraft = async ({
+    designDraft,
+    component,
+    diffThreshold,
+    diffResultPath,
+    beforeScreenshot,
+}: Options) => {
     const {
         width,
         height,
@@ -50,11 +83,12 @@ const compareWithDesignDraft = async (options: Options) => {
     const screenshotDataURL = `data:image/png;base64,${screenshotBase64}`;
 
     // Get the difference between images
-    const { diffSrc, diffPixelCount } = await diffImages(
+    const { diffResultSrc, diffPixelCount } = await diffImages(
         designDraftDataURL,
         screenshotDataURL,
         {
-            diffPath,
+            threshold: diffThreshold,
+            diffResultPath,
         },
     );
 
@@ -63,11 +97,7 @@ const compareWithDesignDraft = async (options: Options) => {
         await loadImage(screenshotDataURL);
     const ssim = getImagesSSIM(screenshotImageData, designDraftImageData);
 
-    return { ssim, diffSrc, diffPixelCount };
-};
-
-compareWithDesignDraft.config = (options: Options) => {
-    defaultOptions = options;
+    return { ssim, diffResultSrc, diffPixelCount };
 };
 
 export default compareWithDesignDraft;

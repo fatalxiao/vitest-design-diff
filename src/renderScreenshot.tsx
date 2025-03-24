@@ -15,25 +15,35 @@ import { render } from 'vitest-browser-react';
 import type { ReactNode } from 'react';
 
 export interface Options {
+    /**
+     * Viewport width.
+     */
     width?: number;
+
+    /**
+     * Viewport height.
+     */
     height?: number;
-    waitUntilCallback?: () => unknown | Promise<unknown>;
-    beforeScreenshot?: () => Promise<unknown> | void;
+
+    /**
+     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
+     */
+    beforeScreenshot?: () => Promise<unknown> | unknown;
 }
 
 /**
- * Render a React component and return its screenshot
+ * Render a React component and return its screenshot.
  * @param component
  * @param options
  */
 const renderScreenshot = async (component: ReactNode, options?: Options) => {
-    // Render the React component
+    // Render the React component.
     render(<ScreenshotContainer>{component}</ScreenshotContainer>);
 
-    // Do something like load css or fonts before screenshot
+    // Do something like load css or fonts before screenshot.
     await options?.beforeScreenshot?.();
 
-    // Waiting for font set ready
+    // Waiting for font set ready.
     await vi.waitFor(
         () =>
             Promise.all([
@@ -55,10 +65,10 @@ const renderScreenshot = async (component: ReactNode, options?: Options) => {
         15000,
     );
 
-    // Set viewport by image width and height
+    // Set viewport by image width and height.
     await page.viewport(options?.width, options?.height);
 
-    // Do screenshot
+    // Do screenshot.
     return await page.screenshot({
         // @ts-ignore
         omitBackground: true,

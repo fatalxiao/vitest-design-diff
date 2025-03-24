@@ -3,7 +3,7 @@
  */
 
 /**
- * Dynamic insert stylesheet to head
+ * Dynamic insert stylesheet to head.
  * @param href
  */
 const loadStylesheet = (href: string) => {

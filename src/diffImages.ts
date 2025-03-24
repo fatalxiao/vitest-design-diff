@@ -9,18 +9,36 @@ import { expect } from 'vitest';
 import loadImage from './loadImage';
 
 export interface Options {
+    /**
+     * Diff threshold (0 to 1); smaller is more sensitive. Default 0.1.
+     */
     threshold?: number;
-    diffPath?: string;
+
+    /**
+     * The diff result image path between component screenshot and design draft.
+     */
+    diffResultPath?: string;
 }
 
+const defaultOptions: Options = {
+    threshold: 0.1,
+    diffResultPath: `./__screenshots__/${expect.getState().testPath.split('/').pop()}/${expect.getState().currentTestName.replaceAll(' ', '-')}-diff.png`,
+};
+
+/**
+ * Diff the component screenshot with the design draft, and generate the diff result image.
+ * @param designDraftDataURL
+ * @param screenshotDataURL
+ * @param options
+ */
 const diffImages = async (
     designDraftDataURL: string,
     screenshotDataURL: string,
     options?: Options,
 ) => {
     // Merge options
-    const mergedOptions = {
-        threshold: 0.1,
+    const mergedOptions: Options = {
+        ...defaultOptions,
         ...options,
     };
 
@@ -53,16 +71,17 @@ const diffImages = async (
         { threshold: mergedOptions.threshold },
     );
 
-    // Write diff to file
+    // Write diff result to file
     context.putImageData(diffImgData, 0, 0);
-    const diffSrc = canvas.toDataURL();
-    await server.commands.writeFile(
-        `./__screenshots__/${expect.getState().testPath.split('/').pop()}/${expect.getState().currentTestName.replaceAll(' ', '-')}-diff.png`,
-        diffSrc.split('data:image/png;base64,')[1],
-        { encoding: 'base64' },
-    );
+    const diffResultSrc = canvas.toDataURL();
+    mergedOptions.diffResultPath &&
+        (await server.commands.writeFile(
+            mergedOptions.diffResultPath,
+            diffResultSrc.split('data:image/png;base64,')[1],
+            { encoding: 'base64' },
+        ));
 
-    return { diffSrc, diffPixelCount };
+    return { diffResultSrc, diffPixelCount };
 };
 
 export default diffImages;

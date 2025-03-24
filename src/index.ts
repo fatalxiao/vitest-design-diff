@@ -2,18 +2,19 @@
  * @file index.ts
  */
 
-export {
-    default as compareWithDesignDraft,
-    type Options,
-} from './compareWithDesignDraft';
-export {
-    default as diffImages,
-    type Options as DiffImagesOptions,
-} from './diffImages';
+// Export default
+import compareWithDesignDraft from './compareWithDesignDraft';
+export default compareWithDesignDraft;
+
+// Export utils
+export { default as diffImages } from './diffImages';
 export { default as getImagesSSIM } from './getImagesSSIM';
-export { default as loadImage, type ImageInfo } from './loadImage';
+export { default as loadImage } from './loadImage';
 export { default as loadStylesheet } from './loadStylesheet';
-export {
-    default as renderScreenshot,
-    type Options as RenderScreenshotOptions,
-} from './renderScreenshot';
+export { default as renderScreenshot } from './renderScreenshot';
+
+// Export types
+export type { CompareResult, Options } from './compareWithDesignDraft';
+export type { Options as DiffImagesOptions } from './diffImages';
+export type { ImageInfo } from './loadImage';
+export type { Options as RenderScreenshotOptions } from './renderScreenshot';
