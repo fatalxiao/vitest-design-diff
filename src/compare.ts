@@ -1,5 +1,5 @@
 /**
- * @file compareWithDesignDraft.ts
+ * @file compare.ts
  */
 
 // Vendors
@@ -13,39 +13,37 @@ export interface Options {
      * The path of design draft.
      */
     designDraft: string;
-
     /**
      * The component to be compared.
      */
     component: ReactNode;
-
     /**
      * The threshold of pixel diff between component screenshot and design draft.
+     *
+     * @default 0.1
      */
     diffThreshold?: number;
-
     /**
      * The diff result image path between component screenshot and design draft.
      */
     diffResultPath?: string;
-
     /**
      * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
      */
     beforeScreenshot?: () => Promise<unknown> | unknown;
 }
 
-export interface CompareResult {
+export interface Result {
     /**
-     * The ssim ( structural similarity index measure ) result between component screenshot and design draft.
+     * The ssim (Structural Similarity Index Measure) result between component screenshot and design draft.
+     *
+     * @range [0, 1]
      */
     ssim: number;
-
     /**
      * The data URL of the diff result image.
      */
     diffResultSrc: string;
-
     /**
      * The number of different pixel between component screenshot and design draft.
      */
@@ -60,13 +58,13 @@ export interface CompareResult {
  * @param diffResultPath
  * @param beforeScreenshot
  */
-const compareWithDesignDraft = async ({
+const compare = async ({
     designDraft,
     component,
     diffThreshold,
     diffResultPath,
     beforeScreenshot,
-}: Options) => {
+}: Options): Promise<Result> => {
     const {
         width,
         height,
@@ -100,4 +98,4 @@ const compareWithDesignDraft = async ({
     return { ssim, diffResultSrc, diffPixelCount };
 };
 
-export default compareWithDesignDraft;
+export default compare;

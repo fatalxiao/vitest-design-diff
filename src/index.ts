@@ -3,8 +3,8 @@
  */
 
 // Export default
-import compareWithDesignDraft from './compareWithDesignDraft';
-export default compareWithDesignDraft;
+import compare from './compare';
+export default compare;
 
 // Export utils
 export { default as diffImages } from './diffImages';
@@ -14,7 +14,7 @@ export { default as loadStylesheet } from './loadStylesheet';
 export { default as renderScreenshot } from './renderScreenshot';
 
 // Export types
-export type { CompareResult, Options } from './compareWithDesignDraft';
+export type { Options, Result } from './compare';
 export type { Options as DiffImagesOptions } from './diffImages';
 export type { ImageInfo } from './loadImage';
 export type { Options as RenderScreenshotOptions } from './renderScreenshot';
