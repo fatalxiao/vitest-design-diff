@@ -1,7 +1,7 @@
 # vitest-design-diff
 
 `vitest-design-diff` is a utility that captures screenshot of a given component and compares it with the design draft.
-It returns the SSIM (Structural Similarity Index Measure) and the number of differing pixels, enabling you to evaluate whether the implementation sufficiently matches the design specifications.
+It returns the [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure#:~:text=The%20structural%20similarity%20index%20measure,the%20similarity%20between%20two%20images.) (Structural Similarity Index Measure) and the number of differing pixels, enabling you to evaluate whether the implementation sufficiently matches the design specifications.
 
 ## Usage
 
@@ -29,7 +29,7 @@ test('Diff with design draft', async () => {
 
 ### diff
 
-`(options: Options) => Promise<Result>;`
+`(options: Options) => Promise<Result>`
 
 ```typescript
 interface Options {
