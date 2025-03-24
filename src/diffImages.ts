@@ -23,7 +23,7 @@ export interface Options {
 
 const defaultOptions: Options = {
     threshold: 0.1,
-    diffResultPath: `./__screenshots__/${expect.getState().testPath.split('/').pop()}/${expect.getState().currentTestName.replaceAll(' ', '-')}-diff.png`,
+    diffResultPath: `./__screenshots__/${expect.getState()?.testPath?.split?.('/')?.pop?.()}/${expect.getState()?.currentTestName?.replaceAll?.(' ', '-')}-diff.png`,
 };
 
 /**
