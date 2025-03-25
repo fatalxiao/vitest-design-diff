@@ -46,7 +46,7 @@ interface Options {
      *
      * @default 0.1
      */
-    diffThreshold?: number;
+    threshold?: number;
     /**
      * The diff result image path between component screenshot and design draft.
      */

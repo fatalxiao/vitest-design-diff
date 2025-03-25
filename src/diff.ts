@@ -1,5 +1,5 @@
 /**
- * @file compare.ts
+ * @file diff.ts
  */
 
 // Vendors
@@ -22,7 +22,7 @@ export interface Options {
      *
      * @default 0.1
      */
-    diffThreshold?: number;
+    threshold?: number;
     /**
      * The diff result image path between component screenshot and design draft.
      */
@@ -54,17 +54,25 @@ export interface Result {
  * Compare component with design draft.
  * @param designDraft
  * @param component
- * @param diffThreshold
+ * @param threshold
  * @param diffResultPath
  * @param beforeScreenshot
  */
-const compare = async ({
+const diff = async ({
     designDraft,
     component,
-    diffThreshold,
+    threshold,
     diffResultPath,
     beforeScreenshot,
 }: Options): Promise<Result> => {
+    if (!designDraft) {
+        throw new Error('Invalid designDraft');
+    }
+
+    if (!component) {
+        throw new Error('Invalid component');
+    }
+
     const {
         width,
         height,
@@ -85,7 +93,7 @@ const compare = async ({
         designDraftDataURL,
         screenshotDataURL,
         {
-            threshold: diffThreshold,
+            threshold: threshold,
             diffResultPath,
         },
     );
@@ -98,4 +106,4 @@ const compare = async ({
     return { ssim, diffResultSrc, diffPixelCount };
 };
 
-export default compare;
+export default diff;
