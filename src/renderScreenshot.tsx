@@ -13,32 +13,37 @@ import { render } from 'vitest-browser-react';
 
 // Types
 import type { ReactNode } from 'react';
+import type { ScreenshotOptions } from './diff';
 
-export interface Options {
+export interface Size {
     /**
      * Viewport width.
      */
-    width?: number;
+    width: number;
 
     /**
      * Viewport height.
      */
-    height?: number;
-
-    /**
-     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
-     */
-    beforeScreenshot?: () => Promise<unknown> | unknown;
+    height: number;
 }
 
 /**
  * Render a React component and return its screenshot.
  * @param component
+ * @param size
  * @param options
  */
-const renderScreenshot = async (component: ReactNode, options?: Options) => {
+const renderScreenshot = async (
+    component: ReactNode,
+    size: Size,
+    options?: ScreenshotOptions,
+) => {
     // Render the React component.
-    render(<ScreenshotContainer>{component}</ScreenshotContainer>);
+    render(
+        <ScreenshotContainer offset={options?.offset}>
+            {component}
+        </ScreenshotContainer>,
+    );
 
     // Do something like load css or fonts before screenshot.
     await options?.beforeScreenshot?.();
@@ -66,13 +71,13 @@ const renderScreenshot = async (component: ReactNode, options?: Options) => {
     );
 
     // Set viewport by image width and height.
-    await page.viewport(options?.width, options?.height);
+    await page.viewport(size.width, size.height);
 
     // Do screenshot.
     return await page.screenshot({
+        base64: true,
         // @ts-ignore
         omitBackground: true,
-        base64: true,
     });
 };
 

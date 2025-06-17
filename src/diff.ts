@@ -8,29 +8,50 @@ import { diffImages, getImagesSSIM, loadImage, renderScreenshot } from './';
 // Types
 import type { ReactNode } from 'react';
 
+export interface ScreenshotOptions {
+    /**
+     * The offset of the component when screenshotting.
+     */
+    offset?: [x?: number, y?: number];
+
+    /**
+     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
+     */
+    beforeScreenshot?: () => Promise<unknown> | unknown;
+}
+
 export interface Options {
     /**
      * The path of design draft.
      */
     designDraft: string;
+
     /**
      * The component to be compared.
      */
     component: ReactNode;
+
+    /**
+     * The offset of the component when screenshotting.
+     */
+    offset?: [x?: number, y?: number];
+
+    /**
+     * The options of screenshot.
+     */
+    screenshotOptions?: ScreenshotOptions;
+
     /**
      * The threshold of pixel diff between component screenshot and design draft.
      *
      * @default 0.1
      */
     threshold?: number;
+
     /**
      * The diff result image path between component screenshot and design draft.
      */
     diffResultPath?: string;
-    /**
-     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
-     */
-    beforeScreenshot?: () => Promise<unknown> | unknown;
 }
 
 export interface Result {
@@ -54,16 +75,16 @@ export interface Result {
  * Compare component with design draft.
  * @param designDraft
  * @param component
+ * @param screenshotOptions
  * @param threshold
  * @param diffResultPath
- * @param beforeScreenshot
  */
 const diff = async ({
     designDraft,
     component,
+    screenshotOptions,
     threshold,
     diffResultPath,
-    beforeScreenshot,
 }: Options): Promise<Result> => {
     if (!designDraft) {
         throw new Error('Invalid design draft');
@@ -81,11 +102,14 @@ const diff = async ({
     } = await loadImage(designDraft);
 
     // Write the screenshot of component to a png file
-    const { base64: screenshotBase64 } = await renderScreenshot(component, {
-        width,
-        height,
-        beforeScreenshot,
-    });
+    const { base64: screenshotBase64 } = await renderScreenshot(
+        component,
+        {
+            width,
+            height,
+        },
+        screenshotOptions,
+    );
     const screenshotDataURL = `data:image/png;base64,${screenshotBase64}`;
 
     // Get the difference between images
