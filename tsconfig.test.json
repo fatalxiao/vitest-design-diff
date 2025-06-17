@@ -11,9 +11,9 @@
         ]
     },
     "include": [
+        "types/**/*.d.ts",
         "src/**/*",
-        "src/*/__tests__/**/*",
-        "tests/**/*",
+        "test/**/*",
         "vitest.workspace.ts"
     ]
 }

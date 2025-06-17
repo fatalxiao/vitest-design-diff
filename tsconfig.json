@@ -19,7 +19,7 @@
         "allowJs": true,
         "noImplicitAny": false
     },
-    "include": ["src/**/*", "public/**/*", "**/*.d.ts"],
+    "include": ["src/**/*", "public/**/*", "types/**/*.d.ts"],
     "exclude": ["node_modules", "dist", "lib", "es"],
     "composite": true,
     "references": [

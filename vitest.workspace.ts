@@ -9,7 +9,7 @@ export default defineWorkspace([
         // @ts-ignore
         plugins: [react()],
         test: {
-            include: ['**/__tests__/**/*.test.[tj]s(x)?'],
+            include: ['test/**/*.test.[tj]s(x)?'],
             browser: {
                 provider: 'playwright',
                 enabled: true,
