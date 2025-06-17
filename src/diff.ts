@@ -66,7 +66,7 @@ const diff = async ({
     beforeScreenshot,
 }: Options): Promise<Result> => {
     if (!designDraft) {
-        throw new Error('Invalid designDraft');
+        throw new Error('Invalid design draft');
     }
 
     if (!component) {

@@ -9,7 +9,7 @@ const Rectangle: FC = () => {
                 height: 40,
                 background: '#000',
             }}
-        ></div>
+        />
     );
 };
 

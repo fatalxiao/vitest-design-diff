@@ -1,47 +1,47 @@
 // Mocks
-import Rectangle from './mock/Rectangle';
-import rectangle from './mock/rectangle.png';
+import RoundedRectangle from './RoundedRectangle';
+import designDraft from './designDraft.png';
 
 // Vendors
 import { expect, test } from 'vitest';
 import diff from 'vitest-design-diff';
 
-test('Rectangle - basic', async () => {
+test('Rounded Rectangle - basic', async () => {
     const { ssim, diffPixelCount } = await diff({
-        designDraft: rectangle,
-        component: <Rectangle />,
+        designDraft,
+        component: <RoundedRectangle />,
     });
 
     expect(ssim).toEqual(1);
     expect(diffPixelCount).toEqual(0);
 });
 
-test('Rectangle - All Empty', () => {
-    expect(
+test('Rounded Rectangle - All Empty', async () => {
+    await expect(
         async () =>
             await diff({
                 designDraft: undefined,
                 component: undefined,
             }),
-    ).rejects.toThrowError('Invalid designDraft');
+    ).rejects.toThrowError('Invalid design draft');
 });
 
-test('Rectangle - Empty Component', () => {
-    expect(
+test('Rounded Rectangle - Empty Component', async () => {
+    await expect(
         async () =>
             await diff({
-                designDraft: rectangle,
+                designDraft,
                 component: undefined,
             }),
     ).rejects.toThrowError('Invalid component');
 });
 
-test('Rectangle - Empty Design Draft', () => {
-    expect(
+test('Rounded Rectangle - Empty Design Draft', async () => {
+    await expect(
         async () =>
             await diff({
                 designDraft: undefined,
-                component: <Rectangle />,
+                component: <RoundedRectangle />,
             }),
-    ).rejects.toThrowError('Invalid designDraft');
+    ).rejects.toThrowError('Invalid design draft');
 });
