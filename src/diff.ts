@@ -61,10 +61,12 @@ export interface Result {
      * @range [0, 1]
      */
     ssim: number;
+
     /**
      * The data URL of the diff result image.
      */
     diffResultSrc: string;
+
     /**
      * The number of different pixel between component screenshot and design draft.
      */

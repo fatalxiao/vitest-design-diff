@@ -15,6 +15,7 @@ export interface Options {
      * @default 0.1
      */
     threshold?: number;
+
     /**
      * The diff result image path between component screenshot and design draft.
      */

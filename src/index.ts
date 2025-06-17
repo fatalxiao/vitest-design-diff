@@ -17,4 +17,3 @@ export { default as renderScreenshot } from './renderScreenshot';
 export type { Options, Result } from './diff';
 export type { Options as DiffImagesOptions } from './diffImages';
 export type { ImageInfo } from './loadImage';
-export type { Options as RenderScreenshotOptions } from './renderScreenshot';
