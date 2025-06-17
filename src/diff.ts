@@ -32,11 +32,6 @@ export interface Options {
     component: ReactNode;
 
     /**
-     * The offset of the component when screenshotting.
-     */
-    offset?: [x?: number, y?: number];
-
-    /**
      * The options of screenshot.
      */
     screenshotOptions?: ScreenshotOptions;

@@ -37,24 +37,38 @@ interface Options {
      * The path of design draft.
      */
     designDraft: string;
+
     /**
      * The component to be compared.
      */
     component: ReactNode;
+
+    /**
+     * The options of screenshot.
+     */
+    screenshotOptions?: {
+        /**
+         * The offset of the component when screenshotting.
+         */
+        offset?: [x?: number, y?: number];
+
+        /**
+         * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
+         */
+        beforeScreenshot?: () => Promise<unknown> | unknown;
+    };
+
     /**
      * The threshold of pixel diff between component screenshot and design draft.
      *
      * @default 0.1
      */
     threshold?: number;
+
     /**
      * The diff result image path between component screenshot and design draft.
      */
     diffResultPath?: string;
-    /**
-     * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
-     */
-    beforeScreenshot?: () => Promise<unknown> | unknown;
 }
 ```
 
