@@ -33,36 +33,36 @@
         "do-publish": "npm publish",
         "prepare": "playwright install",
         "prepublishOnly": "npm run build",
-        "test": "vitest --workspace=vitest.workspace.ts --watch=false"
+        "test": "vitest --watch=false"
     },
     "dependencies": {
         "image-q": "^4.0.0",
         "pixelmatch": "^7.1.0",
-        "playwright": "^1.51.1",
+        "playwright": "^1.53.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "vitest-browser-react": "^0.1.1"
+        "vitest-browser-react": "^0.3.0"
     },
     "devDependencies": {
-        "@types/node": "^22.13.12",
+        "@types/node": "^24.0.3",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
-        "@typescript-eslint/eslint-plugin": "^8.27.0",
-        "@typescript-eslint/parser": "^8.27.0",
-        "@vitejs/plugin-react": "^4.3.4",
-        "@vitest/browser": "^3.0.9",
-        "antd": "^5.24.5",
+        "@typescript-eslint/eslint-plugin": "^8.34.1",
+        "@typescript-eslint/parser": "^8.34.1",
+        "@vitejs/plugin-react": "^4.5.2",
+        "@vitest/browser": "^3.2.3",
+        "antd": "^5.26.1",
         "eslint": "^8.57.0",
-        "eslint-plugin-prettier": "^5.2.4",
-        "eslint-plugin-react": "^7.37.4",
+        "eslint-plugin-prettier": "^5.4.1",
+        "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^5.2.0",
-        "father": "^4.5.2",
+        "father": "^4.5.6",
         "prettier": "^3.5.3",
         "prettier-plugin-organize-imports": "^4.1.0",
-        "prettier-plugin-packagejson": "^2.5.10",
+        "prettier-plugin-packagejson": "^2.5.15",
         "rimraf": "^6.0.1",
-        "typescript": "^5.8.2",
-        "vitest": "^3.0.9"
+        "typescript": "^5.8.3",
+        "vitest": "^3.2.3"
     },
     "peerDependencies": {
         "@vitest/browser": ">=3.x",
