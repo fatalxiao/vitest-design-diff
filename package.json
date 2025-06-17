@@ -1,6 +1,6 @@
 {
     "name": "vitest-design-diff",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "A vitest utility to compare your component with design draft.",
     "keywords": [
         "vitest",
