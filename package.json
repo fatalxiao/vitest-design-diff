@@ -31,6 +31,7 @@
         "build": "npm run clean && father build",
         "clean": "rimraf lib es dist",
         "do-publish": "npm publish",
+        "postinstall": "playwright install",
         "prepare": "playwright install",
         "prepublishOnly": "npm run test && npm run build",
         "test": "vitest --watch=false"
