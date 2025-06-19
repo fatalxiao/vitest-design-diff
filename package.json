@@ -65,7 +65,7 @@
         "vitest": "~3.0.9"
     },
     "peerDependencies": {
-        "@vitest/browser": ">=3.x",
-        "vitest": ">=3.x"
+        "@vitest/browser": "~3.0.9",
+        "vitest": "~3.0.9"
     }
 }
