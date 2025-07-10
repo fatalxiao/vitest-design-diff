@@ -19,12 +19,13 @@ export interface Options {
     /**
      * The diff result image path between component screenshot and design draft.
      */
-    diffResultPath?: string;
+    getDiffResultPath?: () => string;
 }
 
 const defaultOptions: Options = {
     threshold: 0.1,
-    diffResultPath: `./__screenshots__/${expect.getState()?.testPath?.split?.('/')?.pop?.()}/${expect.getState()?.currentTestName?.replaceAll?.(' ', '-')}-diff.png`,
+    getDiffResultPath: () =>
+        `./__screenshots__/${expect.getState()?.testPath?.split?.('/')?.pop?.()}/${expect.getState()?.currentTestName?.replaceAll?.(' ', '-')}-diff.png`,
 };
 
 /**
@@ -40,8 +41,9 @@ const diffImages = async (
 ) => {
     // Merge options
     const mergedOptions: Options = {
-        ...defaultOptions,
-        ...options,
+        threshold: options?.threshold || defaultOptions.threshold,
+        getDiffResultPath:
+            options?.getDiffResultPath || defaultOptions.getDiffResultPath,
     };
 
     // Load images by data url
@@ -76,9 +78,14 @@ const diffImages = async (
     // Write diff result to file
     context.putImageData(diffImgData, 0, 0);
     const diffResultSrc = canvas.toDataURL();
-    mergedOptions.diffResultPath &&
+    const diffResultPath =
+        (mergedOptions.getDiffResultPath &&
+            typeof mergedOptions.getDiffResultPath === 'function' &&
+            mergedOptions.getDiffResultPath()) ||
+        undefined;
+    diffResultPath &&
         (await server.commands.writeFile(
-            mergedOptions.diffResultPath,
+            diffResultPath,
             diffResultSrc.split('data:image/png;base64,')[1],
             { encoding: 'base64' },
         ));

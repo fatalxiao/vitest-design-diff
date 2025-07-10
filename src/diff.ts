@@ -46,7 +46,7 @@ export interface Options {
     /**
      * The diff result image path between component screenshot and design draft.
      */
-    diffResultPath?: string;
+    getDiffResultPath?: () => string;
 }
 
 export interface Result {
@@ -74,14 +74,14 @@ export interface Result {
  * @param component
  * @param screenshotOptions
  * @param threshold
- * @param diffResultPath
+ * @param getDiffResultPath
  */
 const diff = async ({
     designDraft,
     component,
     screenshotOptions,
     threshold,
-    diffResultPath,
+    getDiffResultPath,
 }: Options): Promise<Result> => {
     if (!designDraft) {
         throw new Error('Invalid design draft');
@@ -115,7 +115,7 @@ const diff = async ({
         screenshotDataURL,
         {
             threshold: threshold,
-            diffResultPath,
+            getDiffResultPath,
         },
     );
 
