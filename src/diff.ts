@@ -18,6 +18,11 @@ export interface ScreenshotOptions {
      * A hook called before component screenshot. You can set global styles, load fonts or do some interaction here.
      */
     beforeScreenshot?: () => Promise<unknown> | unknown;
+
+    /**
+     * A hook called after component screenshot. You can clear styles or do some interaction here.
+     */
+    afterScreenshot?: () => Promise<unknown> | unknown;
 }
 
 export interface Options {

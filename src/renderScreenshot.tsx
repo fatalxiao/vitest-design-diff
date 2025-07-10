@@ -74,11 +74,16 @@ const renderScreenshot = async (
     await page.viewport(size.width, size.height);
 
     // Do screenshot.
-    return await page.screenshot({
+    const result = await page.screenshot({
         base64: true,
         // @ts-ignore
         omitBackground: true,
     });
+
+    // Do something after screenshot.
+    await options?.afterScreenshot?.();
+
+    return result;
 };
 
 export default renderScreenshot;
