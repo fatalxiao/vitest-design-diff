@@ -5,12 +5,11 @@
             "vitest-design-diff": ["src"],
             "vitest-design-diff/*": ["src/*"]
         },
-        "types": [
-            "@vitest/browser/matchers",
-            "@vitest/browser/providers/playwright"
-        ]
+        "composite": true
     },
     "include": [
+        "node_modules/@vitest/browser/matchers.d.ts",
+        "node_modules/@vitest/browser/providers/playwright.d.ts",
         "types/**/*.d.ts",
         "src/**/*",
         "test/**/*",
