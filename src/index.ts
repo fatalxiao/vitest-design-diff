@@ -12,6 +12,7 @@ export { default as getImagesSSIM } from './getImagesSSIM';
 export { default as loadImage } from './loadImage';
 export { default as loadStylesheet } from './loadStylesheet';
 export { default as renderScreenshot } from './renderScreenshot';
+export * from './util';
 
 // Export types
 export type { Options, Result } from './diff';
