@@ -39,16 +39,15 @@ const renderScreenshot = async (
     options?: ScreenshotOptions,
 ) => {
     // Render the React component.
-    render(
+    const renderResult = render(
         <ScreenshotContainer offset={options?.offset}>
             {component}
         </ScreenshotContainer>,
     );
 
-    // Do something like load css or fonts before screenshot.
-    await options?.beforeScreenshot?.();
+    // Set viewport by image width and height.
+    await page.viewport(size.width, size.height);
 
-    // Waiting for font set ready.
     await vi.waitFor(
         () =>
             Promise.all([
@@ -70,12 +69,13 @@ const renderScreenshot = async (
         15000,
     );
 
-    // Set viewport by image width and height.
-    await page.viewport(size.width, size.height);
+    // Do something like load css or fonts before screenshot.
+    await options?.beforeScreenshot?.();
 
     // Do screenshot.
     const result = await page.screenshot({
         base64: true,
+        element: renderResult.container,
         // @ts-ignore
         omitBackground: true,
     });
